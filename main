@@ -1,0 +1,48 @@
+# weather-clone-app
+import requests
+import tkinter as tk
+from tkinter import Tk
+from tkinter import messagebox
+
+
+def get_weather(api_key):
+    city = city_entry.get()
+    
+    api_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
+
+    try:
+        response = requests.get(api_url)
+        data = response.json()
+        
+        if response.status_code == 200:
+            weather_description = data['weather'][0]['description']
+            temperature = data['main']['temp']
+
+            messagebox.showinfo("D.N.I radar.", f"Today's weather description in {city} city is: \n{weather_description}\n\nThe atmospheric temperature condition is deduced to be: {temperature}°C")
+
+        else:
+            messagebox.showerror(f"D.N.I {response.status_code} Error", f"Failed to retrieve weather data of {city} city.")
+
+    except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
+api_key = '2932762584333d82f2b2af0cbd3984a9'
+
+root = tk.Tk()
+
+root.title("@Dev_aladinh production.")
+root.geometry("700x500")
+
+label = tk.Label(root, text = "^^WEATHER APP^^").pack(pady = 20)
+label = tk.Label(root, text = "***Welcome to D.N.I. weather app***\n\nIt basically shows the weather info of any city or a metropolitant area you enquire to know its weather information. \nEnter the city name and click the button below to get it's weather information\n").pack(pady = 20)
+label = tk.Label(root, text="Enter the city name:").place(x=180, y=150)
+
+city_entry = tk.Entry(root)
+city_entry.place(x=300, y=150)
+
+button  = tk.Button(root, text = "click here", command = lambda: get_weather(api_key))
+button.place(x=300, y=200)
+
+#root.iconbitmap(E://Denno/DNI Media/Pics album/4D Media/pexels-bri-schneiter-346529.jpg)
+root.mainloop()
+
