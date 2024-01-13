@@ -22,7 +22,6 @@ def get_weather(api_key):
         if response.status_code == 200:
             weather_description = data['weather'][0]['description']
             temperature = data['main']['temp']
-
             messagebox.showinfo("D.N.I radar.", f"Today's weather description in {city} city is: \n{weather_description}\n\nThe atmospheric temperature condition is deduced to be: {temperature}°C")
 
         else:
@@ -34,7 +33,6 @@ def get_weather(api_key):
 api_key = '2932762584333d82f2b2af0cbd3984a9'
 
 root = tk.Tk()
-
 menu_bar = tk.Menu(root)
 root.config(menu = menu_bar)
     
@@ -55,7 +53,6 @@ def submenu_command():
         
     button = ttk.Button(root, text="Close", command=button_click)
     button.place(x=160, y=185)
-
     
     root.mainloop()
     
@@ -88,4 +85,3 @@ button = ttk.Button(root, text="Close", command=exit_page)
 button.place(x=300, y=265)
 
 root.mainloop()
-    
