@@ -36,6 +36,7 @@ def get_weather(api_key):
 api_key = '2932762584333d82f2b2af0cbd3984a9'
 
 root = tk.Tk()
+root.config(False, False)
 menu_bar = tk.Menu(root)
 root.config(menu = menu_bar)
     
@@ -69,8 +70,8 @@ style.theme_use("clam")
 root.title("@Dev_aladinh production")
 root.geometry("700x400")
 
-label = tk.Label(root, text = "^^WEATHER APP^^").pack(pady = 20)
-label = tk.Label( root, text = "***Welcome to D.N.I. weather app***\n\nIt basically shows the weather info of any city or a metropolitant area you enquire to know its weather information. \nEnter the city name and click the button below to get it's weather information\n").pack(pady = 20)
+label = tk.Label(root, text = "^^WEATHER CLONE APP^^").pack(pady = 20)
+label = tk.Label( root, text = "***Welcome to J.A.R.V.I.S. weather app***\n\nIt basically shows the weather info of any city or a metropolitant area you enquire to know its weather information. \nEnter the city name and click the button below to get it's weather information\n").pack(pady = 20)
 
 input_frame = ttk.Frame(root)
 input_frame.pack(pady=10)
