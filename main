@@ -1,5 +1,5 @@
-# Dev_@ladinh production
-# A weather clone app; it mainly entails giving the weather forecast of an area by simply entering the city name and getting the weather information.
+# 2023 Dev_@ladinh production
+# A weather clone app, It's mainly entails giving the weather forecast of an area by simply entering the city name and getting the weather information.
 
 import requests
 import tkinter as tk
