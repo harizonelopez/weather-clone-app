@@ -1,9 +1,7 @@
 # 2023 Dev_@ladinh production
-# A weather clone app, It's mainly entails giving the weather forecast of an area by simply entering the city name and getting the weather information.
 
 import requests
 import tkinter as tk
-from tkinter import Tk
 from tkinter import messagebox
 from tkinter import ttk
 from pystray import MenuItem as item
@@ -14,9 +12,13 @@ def exit_page():
     root.destroy()
 
 def get_weather(api_key):
-    city = city_entry.get()
+    city = city_entry.get().strip()
     
-    api_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
+    if not city:
+        messagebox.showwarning("Input Error", "Please enter a city name.")
+        return
+    
+    api_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
 
     try:
         response = requests.get(api_url)
@@ -26,40 +28,36 @@ def get_weather(api_key):
             weather_description = data['weather'][0]['description']
             temperature = data['main']['temp']
             messagebox.showinfo("D.N.I radar.", f"Today's weather description in {city} city is: \n{weather_description}\n\nThe atmospheric temperature condition is deduced to be: {temperature}°C")
-
         else:
             messagebox.showerror(f"D.N.I {response.status_code} Error", f"Failed to retrieve weather data of {city} city.")
-
     except Exception as e:
-            messagebox.showerror("Error", f"An error occurred: {str(e)}")
+        messagebox.showerror("Error", f"An error occurred: {str(e)}")
 
 api_key = '2932762584333d82f2b2af0cbd3984a9'
 
 root = tk.Tk()
-root.config(False, False)
+root.title("@Dev_aladinh production")
+root.geometry("700x400")
+root.resizable(False, False)
+
 menu_bar = tk.Menu(root)
-root.config(menu = menu_bar)
-    
+root.config(menu=menu_bar)
+
 def submenu_command():
-    root = Tk()
-    root.title("@Dev_aladinh production")
-    root.geometry("400x230")
-    
-    label = tk.Label(root, text = "Github account:").place(x=160, y=5)
-    label = tk.Label(root, text = "https://github.com/harizonelopez").pack(pady = 20)
-    label = tk.Label(root, text = "Linkedin account:").place(x=160, y=65)
-    label = tk.Label(root, text = "https://www.linkedin.com/in/harizone-lopez-a267b625b").pack(pady = 20)
-    label = tk.Label(root, text = "Mail me to:").place(x=160, y=125)
-    label = tk.Label(root, text = "harizonelopez23@gmail.com").pack(pady = 20)
-    
-    def button_click():
-        root.destroy()
-        
-    button = ttk.Button(root, text="Close", command=button_click)
+    contact_window = tk.Toplevel(root)
+    contact_window.title("@Dev_aladinh production")
+    contact_window.geometry("400x230")
+
+    tk.Label(contact_window, text="Github account:").place(x=160, y=5)
+    tk.Label(contact_window, text="https://github.com/harizonelopez").pack(pady=20)
+    tk.Label(contact_window, text="Linkedin account:").place(x=160, y=65)
+    tk.Label(contact_window, text="https://www.linkedin.com/in/harizone-lopez-a267b625b").pack(pady=20)
+    tk.Label(contact_window, text="Mail me to:").place(x=160, y=125)
+    tk.Label(contact_window, text="harizonelopez23@gmail.com").pack(pady=20)
+
+    button = ttk.Button(contact_window, text="Close", command=contact_window.destroy)
     button.place(x=160, y=185)
-    
-    root.mainloop()
-    
+
 submenu = tk.Menu(menu_bar, tearoff=0)
 submenu.add_command(label="Links", command=submenu_command)
 menu_bar.add_cascade(label="Contact Me", menu=submenu)
@@ -67,25 +65,19 @@ menu_bar.add_cascade(label="Contact Me", menu=submenu)
 style = ttk.Style()
 style.theme_use("clam")
 
-root.title("@Dev_aladinh production")
-root.geometry("700x400")
-
-label = tk.Label(root, text = "^^WEATHER CLONE APP^^").pack(pady = 20)
-label = tk.Label( root, text = "***Welcome to J.A.R.V.I.S. weather app***\n\nIt basically shows the weather info of any city or a metropolitant area you enquire to know its weather information. \nEnter the city name and click the button below to get it's weather information\n").pack(pady = 20)
+tk.Label(root, text="^^WEATHER CLONE APP^^").pack(pady=20)
+tk.Label(root, text="***Welcome to J.A.R.V.I.S. weather app***\n\nIt basically shows the weather info of any city or a metropolitan area you inquire to know its weather information. \nEnter the city name and click the button below to get its weather information\n").pack(pady=20)
 
 input_frame = ttk.Frame(root)
 input_frame.pack(pady=10)
 
-label = ttk.Label(input_frame, text="Enter a city:")
-label.grid(row=0, column=0, padx=5)
+tk.Label(input_frame, text="Enter a city:").grid(row=0, column=0, padx=5)
 
 city_entry = ttk.Entry(input_frame)
 city_entry.grid(row=0, column=1, padx=5)
 
-button = ttk.Button(input_frame, text="click here", command=lambda: get_weather(api_key))
-button.grid(row=0, column=2, padx=5)
+ttk.Button(input_frame, text="click here", command=lambda: get_weather(api_key)).grid(row=0, column=2, padx=5)
 
-button = ttk.Button(root, text="Close", command=exit_page)
-button.place(x=300, y=265)
+ttk.Button(root, text="Close", command=exit_page).place(x=300, y=265)
 
 root.mainloop()
